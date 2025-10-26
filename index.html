@@ -51,22 +51,32 @@ th {
 tr:hover {
   background-color: #e0e7ff;
 }
-</style>
-table {
-  border-collapse: collapse;
-  width: 100%;
-  min-width: 800px; /* 如果欄位太多可調整 */
-}
-
-.table-container {
-  width: 100%;
-  overflow-x: auto; /* 關鍵：允許橫向捲動 */
-}
-
-th, td {
-  white-space: nowrap; /* 避免內容自動換行 */
-}
+<!-- === Mobile responsive tables (v2) === -->
 <style>
+  .table-scroll { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { white-space: nowrap; }
+  thead th { color: #000 !important; } /* 表頭文字黑色 */
+  @media (max-width: 480px) { table { font-size: 14px; } }
+</style>
+<script>
+  (function(){
+    function wrap(t){
+      if(!t) return;
+      var p=t.parentElement;
+      if(p && p.classList && p.classList.contains('table-scroll')) return;
+      var w=document.createElement('div');
+      w.className='table-scroll';
+      if(p){ p.insertBefore(w,t); }
+      w.appendChild(t);
+    }
+    document.addEventListener('DOMContentLoaded', function(){
+      document.querySelectorAll('table').forEach(wrap);
+    });
+  })();
+</script>
+<!-- === /Mobile responsive tables (v2) === -->
+
   .table-container { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
   table { border-collapse: collapse; width: 100%; }
   th, td { white-space: nowrap; }
