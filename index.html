@@ -52,8 +52,20 @@ tr:hover {
   background-color: #e0e7ff;
 }
 </style>
+table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 800px; /* 如果欄位太多可調整 */
+}
 
-<!-- === Responsive table enhancement injected by ChatGPT === -->
+.table-container {
+  width: 100%;
+  overflow-x: auto; /* 關鍵：允許橫向捲動 */
+}
+
+th, td {
+  white-space: nowrap; /* 避免內容自動換行 */
+}
 <style>
   .table-container { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
   table { border-collapse: collapse; width: 100%; }
