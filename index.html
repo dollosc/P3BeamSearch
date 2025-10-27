@@ -1,159 +1,112 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>樑搜尋系統v4by湘</title>
-<style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>樑搜尋系統 v4</title>
+  <style>
+    /* 全站字體＋置中 */
+    body {
+      font-family: "Microsoft JhengHei", sans-serif;
+      text-align: center;
+      background: #f9fafb;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    h1 { color: #1e3a8a; margin: 6px 0 2px; }
 
-  body {
-  font-family: "Microsoft JhengHei", sans-serif;
-  text-align: center; /* 所有文字置中 */
-  background: #f9fafb;
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-}
+    /* 搜尋、下拉 */
+    .controls { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin: 8px 0 14px; }
+    #search-box {
+      margin: 0;
+      padding: 10px 12px;
+      font-size: 16px;
+      width: 260px;
+      border: 2px solid #6d84d1;
+      border-radius: 10px;
+      background-color: #fff;
+      color: #333;
+      transition: all .2s ease;
+    }
+    #search-box:focus {
+      outline: none;
+      border-color: #3a57d1;
+      box-shadow: 0 0 6px rgba(58,87,209,.35);
+    }
+    #floor-select {
+      margin: 0;
+      padding: 10px 12px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: 2px solid #8095da;
+      background-color: #fff;
+      color: #333;
+      transition: border-color .2s ease;
+    }
+    #floor-select:focus { outline: none; border-color: #3a57d1; }
 
-  /* 外層容器可橫向滑動 */
-  .table-wrap {
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
+    /* 外層容器可橫向滑動 */
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
 
-  /* 表格樣式 */
-  table {
-    border-collapse: collapse;
-    width: 100%;
-    min-width: 900px; /* 讓手機能左右滑動 */
-    background: #fff;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  }
-
-  th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-    white-space: nowrap;
-    background: #fff;
-  }
-
-  /* 表頭固定在上方 */
-  thead th {
-    position: sticky;
-    top: 0;
-    z-index: 3;
-    background: #1e3a8a;
-    color: #fff;
-  }
-
-  /* 最左欄固定在左側 */
-  td:first-child,
-  th:first-child {
-    position: sticky;
-    left: 0;
-    z-index: 2;
-    background: #fff;
-    box-shadow: 1px 0 0 rgba(0,0,0,0.06);
-  }
-
-  /* 左上角交叉處（表頭第一格）層級最高 */
-  thead th:first-child {
-    z-index: 4;
-    background: #1e3a8a;
-    color: #fff;
-  }
-
-  /* 滑鼠移過整列變色 */
-  tr:hover {
-    background-color: #e0e7ff;
-  }
-
-  /* 手機版字體稍微縮小 */
-  @media (max-width: 480px) {
+    /* 表格樣式 */
     table {
-      font-size: 14px;
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 900px; /* 需要時再橫向滑動 */
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,.08);
     }
-  }
-  #search-box {
-  margin: 10px;
-  padding: 10px;
-  font-size: 16px;
-  width: 250px;
-  border: 2px solid #6d84d1;
-  border-radius: 8px;
-  background-color: #fff;
-  color: #333;
-  transition: all 0.2s ease;
-}
-
-#search-box:focus {
-  outline: none;
-  border-color: #3a57d1;
-  box-shadow: 0 0 6px rgba(58, 87, 209, 0.4);
-}
-
-/* 下拉選單 */
-#floor-select {
-  margin: 10px;
-  padding: 8px;
-  font-size: 16px;
-  border-radius: 8px;
-  border: 2px solid #8095da;
-  background-color: #fff;
-  color: #333;
-  transition: border-color 0.2s ease;
-}
-
-#floor-select:focus {
-  outline: none;
-  border-color: #3a57d1;
-}
-
-table, th, td {
-  text-align: center;
-}
-
-</style>
-<script>
-  (function(){
-    function wrap(t){
-      if(!t) return;
-      var p=t.parentElement;
-      if(p && p.classList && p.classList.contains('table-scroll')) return;
-      var w=document.createElement('div');
-      w.className='table-scroll';
-      if(p){ p.insertBefore(w,t); }
-      w.appendChild(t);
+    th, td {
+      border: 1px solid #e5e7eb;
+      padding: 10px 8px;
+      text-align: center;
+      white-space: nowrap; /* 防換行，讓橫向滑動 */
+      background: #fff;
+      font-size: 16px;
     }
-    document.addEventListener('DOMContentLoaded', function(){
-      document.querySelectorAll('table').forEach(wrap);
-    });
-  })();
 
-(function(){
-  function wrapTable(t){
-    if(!t) return;
-    if(t.parentElement && t.parentElement.classList.contains('table-container')) return;
-    var w = document.createElement('div');
-    w.className = 'table-container';
-    t.parentNode.insertBefore(w, t);
-    w.appendChild(t);
-  }
-  document.addEventListener('DOMContentLoaded', function(){
-    document.querySelectorAll('table').forEach(wrapTable);
-  });
-})();
-</script>
-<!-- === /Responsive table enhancement === -->
+    /* 表頭固定 */
+    thead th {
+      position: sticky;
+      top: 0;
+      z-index: 4;
+      background: #1e3a8a;
+      color: #fff;
+    }
+
+    /* 最左欄固定（與表頭同底色） */
+td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 3;
+  background: #fff; /* 白底 */
+  color: #000;      /* 黑字 */
+  box-shadow: 1px 0 0 rgba(0, 0, 0, 0.05);
+}
+
+    
+    /* 滑過整列變色 */
+    tbody tr:hover { background: #a9b4d6; }
+
+    /* 手機字級微調 */
+    @media (max-width: 480px) {
+      th, td { font-size: 14px; }
+      #search-box { width: 220px; }
+    }
+  </style>
 </head>
 <body>
-  <h1>超級梁搜尋器v4</h1>
-  <div>
-    <select id="floor-select">
+  <h1>超級樑搜尋器 v4</h1>
+
+  <div class="controls">
+    <select id="floor-select" aria-label="選擇樓層">
       <option value="">全部樓層</option>
       <option value="B1F">B1F</option>
       <option value="1F">1F</option>
@@ -161,24 +114,27 @@ table, th, td {
       <option value="3F">3F</option>
       <option value="FS">FS</option>
     </select>
-    <input type="text" id="search-box" placeholder="輸入樑編號進行搜尋..." />
+    <input id="search-box" type="text" placeholder="輸入樑編號進行搜尋…" />
   </div>
-  <table id="result-table">
-    <thead>
-      <tr>
-        <th>樑編號</th>
-        <th>樓層</th>
-        <th>頁碼</th>
-        <th>樑尺寸</th>
-        <th>上層主筋</th>
-        <th>下層主筋</th>
-        <th>加鐵長</th>
-        <th>箍筋</th>
-        <th>腰筋</th>
-      </tr>
-    </thead>
-    <tbody id="result-body"></tbody>
-  </table>
+
+  <div class="table-wrap">
+    <table id="result-table">
+      <thead>
+        <tr>
+          <th>樑編號</th>
+          <th>樓層</th>
+          <th>頁碼</th>
+          <th>樑尺寸</th>
+          <th>上層主筋</th>
+          <th>下層主筋</th>
+          <th>加鐵長</th>
+          <th>箍筋</th>
+          <th>腰筋</th>
+        </tr>
+      </thead>
+      <tbody id="result-body"></tbody>
+    </table>
+  </div>
 
   <script>
   // === 🔹 Step 1: 在這裡貼入你的資料 ===
