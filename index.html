@@ -83,6 +83,13 @@ tr:hover {
     });
   })();
 </script>
+<!-- === Responsive table enhancement === -->
+<style>
+  .table-container { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { white-space: nowrap; }
+  thead th { position: sticky; top: 0; z-index: 3; background: #fff; }
+  td:first-child, th:first-child { position: sticky; left: 0; z-index: 2; background: #fff; box-shadow: 1px 0 0 rgba(0,0,0,0.06); }
 </style>
 <script>
 (function(){
@@ -99,7 +106,7 @@ tr:hover {
   });
 })();
 </script>
-
+<!-- === /Responsive table enhancement === -->
 </head>
 <body>
   <h1>超級梁搜尋器v4</h1>
