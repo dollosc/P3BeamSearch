@@ -32,17 +32,25 @@ h1 {
   border-radius: 8px;
   border: 2px solid #1e40af;
 }
+  <div class="table-container">
 table {
   border-collapse: collapse;
   width: 95%;
+  min-width: 800px
   margin-top: 20px;
   background: white;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+  </div>
+  .table-container {
+  width: 100%;
+  overflow-x: auto; /* 關鍵：允許橫向捲動 */
 }
 th, td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
+  white-space: nowrap; /* 避免內容自動換行 */
 }
 th {
   background: #1e3a8a;
@@ -56,7 +64,7 @@ tr:hover {
   .table-scroll { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
   table { border-collapse: collapse; width: 100%; }
   th, td { white-space: nowrap; }
-  thead th { color: #000 !important; } /* 表頭文字黑色 */
+  thead th { color: #001 !important; } /* 表頭文字黑色 */
   @media (max-width: 480px) { table { font-size: 14px; } }
 </style>
 <script>
@@ -75,11 +83,6 @@ tr:hover {
     });
   })();
 </script>
-  .table-container { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  table { border-collapse: collapse; width: 100%; }
-  th, td { white-space: nowrap; }
-  thead th { position: sticky; top: 0; z-index: 3; background: #fff; }
-  td:first-child, th:first-child { position: sticky; left: 0; z-index: 2; background: #fff; box-shadow: 1px 0 0 rgba(0,0,0,0.06); }
 </style>
 <script>
 (function(){
