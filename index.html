@@ -104,18 +104,18 @@ tr:hover {
     <select id="floor-select">
       <option value="">全部樓層</option>
       <option value="B1F">B1F</option>
-      <option value="FS">FS</option>
       <option value="1F">1F</option>
       <option value="2F">2F</option>
       <option value="3F">3F</option>
+      <option value="FS">FS</option>
     </select>
     <input type="text" id="search-box" placeholder="輸入樑編號進行搜尋..." />
   </div>
   <table id="result-table">
     <thead>
       <tr>
-        <th>樓層</th>
         <th>樑編號</th>
+        <th>樓層</th>
         <th>頁碼</th>
         <th>樑尺寸</th>
         <th>上層主筋</th>
@@ -4587,8 +4587,8 @@ tr:hover {
     filtered.forEach(row => {
       const tr = document.createElement("tr");
       tr.innerHTML = `
-        <td>${row["樓層"]}</td>
         <td>${row["樑編號"]}</td>
+        <td>${row["樓層"]}</td>
         <td>${row["頁碼"]}</td>
         <td>${row["樑尺寸"]}</td>
         <td>${row["上層主筋"]}</td>
