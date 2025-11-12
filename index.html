@@ -103,7 +103,7 @@ td:first-child {
   </style>
 </head>
 <body>
-  <h1>F20P3樑搜尋工具(DC)</h1>
+  <h1>F20P3樑搜尋工具</h1>
 
   <div class="controls">
     <select id="floor-select" aria-label="選擇樓層">
@@ -130,6 +130,9 @@ td:first-child {
           <th>加鐵長</th>
           <th>箍筋</th>
           <th>腰筋</th>
+          <th>搭接</th>
+          <th>延伸</th>
+          
         </tr>
       </thead>
       <tbody id="result-body"></tbody>
@@ -4604,6 +4607,8 @@ td:first-child {
         <td>${row["加鐵長"]}</td>
         <td>${row["箍筋"]}</td>
         <td>${row["腰筋"]}</td>
+        <td>${row["搭接"]}</td>
+        <td>${row["延伸"]}</td>
       `;
       resultBody.appendChild(tr);
     });
